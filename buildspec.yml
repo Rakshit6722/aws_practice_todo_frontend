@@ -11,6 +11,10 @@ phases:
     commands:
       - echo building frontend...
       - npm run build
+  post_build:
+    commands:
+      - aws s3 sync . s3://todo-temp-12342141 --delete
+      - aws cloudfront create-invalidation --distribution-id E1MYF0LUTGKODH --paths "/*"
 
 artifacts:
   files:
